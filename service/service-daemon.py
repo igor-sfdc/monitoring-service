@@ -7,6 +7,7 @@ from astral import Astral
 
 TURN_LIGHT_ON_CMD = "/home/pi/git/HomeAutomation/turnRoomsOn.sh"
 TURN_LIGHT_OFF_CMD = "/home/pi/git/HomeAutomation/turnRoomsOff.sh"
+DIM_DESK_LIGHT_LIGHT_CMD = "/home/pi/git/HomeAutomation/dimDeskLight.sh"
 
 def isBeforeSunriseSunsetState():
     now = datetime.datetime.now()
@@ -31,6 +32,10 @@ def updateState():
     global prev_before_sunset
     global lightsOn
     
+    ### Execute this command every minute, no logging
+    completedFrequent = subprocess.run(DIM_DESK_LIGHT_LIGHT_CMD, shell=True)
+    # print("Completed DIM_DESK_LIGHT_LIGHT_CMD:", completedFrequent) 
+
     before_sunrise, before_sunset = isBeforeSunriseSunsetState()
 
     if (prev_before_sunrise != before_sunrise or prev_before_sunset != before_sunset): # Something changed
